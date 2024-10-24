@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using E_Learning.Areas.Payment.Models;
+
+@model CourseSummaryViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div id="section-pricing" class="section-pricing py-5">
+    <div class="container">
+        <div class="single-col-max mx-auto">
+            <h3 class="text-center mb-5">Join This Course</h3>
+            <div class="pricing-plan">
+                <div class="row">
+                    <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                        <div class="plan-item rounded">
+                            <div class="plan-header">
+                                <h4 class="plan-heading rounded-top p-3  theme-bg-primary">Join to Us</h4>
+                            </div><!--//plan-header-->
+                            <div class="plan-details p-4">
+                                <div class="plan-desc text-center mb-4">
+                                    <div class="plan-price">$@Model.CourseIdMony.Values.First()</div>
+                                    <div class="plan-price-desc">UnLimited Access</div>
+                                </div>
+                                <div class="plan-content px-3">
+                                    
+                                    <ul class="plan-content-list list-unstyled">
+                                        <li><i class="theme-check-icon fas fa-check me-2"></i>Access to basic level videos</li>
+                                        <li><i class="theme-check-icon fas fa-check me-2"></i>bonus resources</li>
+                                    </ul>
+
+                                </div><!--//plan-content-->
+
+                            </div><!--//plan-content-->
+                            <div class="plan-cta text-center px-4">
+                                <form  asp-area="Payment" asp-controller="Checkout" asp-action="Index" method="get" >
+                                    <input name="Csummary.total" value="@Model.total" hidden />
+                                    <input name="Csummary.UserId" value="@Model.UserId" hidden />
+                                    <input type="text" name="Csummary.CourseIdMony[@Model.CourseIdMony.Keys.First()]"
+                                           value="@Model.CourseIdMony.Values.First()" hidden />
+
+                                    <button type="submit" class="btn btn-primary">Puy Now</button>
+                                </form>
+                            </div>
+                        </div><!--//plan-item-->
+                    </div><!--//col-->
+                </div><!--//row-->
+            </div><!--//pricing-plan-->
+        </div>
+    </div><!--//container-->
+</div><!--//section-pricing-->

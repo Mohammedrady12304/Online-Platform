@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using E_Learning.Models
+
+@model List<CourseSection>
+
+@{
+}
+
+<div class="accordion module-accordion" id="module-accordion">
+    @foreach (var sections in Model)
+    {
+        <div class="module-item card">
+            <div class="module-header card-header" id="module-heading-@sections.Id">
+                <h4 class="module-title mb-0">
+                    <a class="card-toggle module-toggle" href="#module-@sections.Id" data-bs-toggle="collapse" data-bs-target="#module-@sections.Id" aria-expanded="true" aria-controls="module-@sections.Id">
+                        <i class="module-toggle-icon fas fa-plus me-2"></i>
+                        @sections.Title
+                    </a>
+                </h4>
+            </div>
+            <div id="module-@sections.Id" class="module-content collapse" aria-labelledby="module-heading-@sections.Id">
+                <div class="card-body p-0">
+                    @if (sections.SectionLessons != null)
+                    {
+                        @foreach (var lesson in sections.SectionLessons.OrderBy(l => l.Order))
+                        {
+                            <div class="module-sub-item p-3">
+                                <div class="row justify-content-between">
+                                    <div class="col-9">
+                                        <span class="theme-text-secondary me-2">@lesson.Order</span>
+                                        @if(lesson.Order == 1 && sections.order == 1)
+                                        {
+                                            <a class="video-play-trigger" href="@lesson.Videourl" target="_blank">@lesson.Title</a>
+                                            <span class="badge bg-primary ms-2">Preview</span>
+                                            
+                                        }
+                                        else if (!string.IsNullOrEmpty(lesson.Videourl))
+                                        {
+                                            <a class="video-play-trigger" href="@lesson.Videourl" target="_blank">@lesson.Title</a>
+                                            
+                                        }
+                                        else
+                                        {
+                                            @lesson.Title
+                                        }
+                                    </div>
+                                    <div class="col-3 text-end extra-info">
+                                        @if (lesson.AttachedFile != null)
+                                        {
+                                            <a href="@Url.Action("DownloadFile", "YourController", new { id = lesson.Id })">
+                                                <span class="icon dripicons-download me-2"></span>Resources
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span>No resources</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

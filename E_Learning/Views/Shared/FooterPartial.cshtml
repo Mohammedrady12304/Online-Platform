@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+         body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .footer {
+            background-color: #2c3e50;
+            /* Background color for footer */
+            padding: 20px;
+            /* Padding around the footer */
+            color: white;
+            /* Text color for footer */
+        }
+
+        .footer-columns {
+            display: flex;
+            /* Flexbox for columns */
+            gap: 20px;
+            /* Space between columns */
+        }
+
+        .footer-column {
+            display: inline-block;
+            /* Allow inline-block for each column */
+            text-align: left;
+            /* Align text to the left */
+            margin-right: 100px;
+            /* Space between columns */
+        }
+
+        .bordered-element {
+            border: 2px solid #e4dcdc;
+            /* Border styling */
+            padding: 15px;
+            /* Padding inside bordered element */
+            width: 70px;
+            /* Width of bordered element */
+            height: 20px;
+            /* Height of bordered element */
+            margin: 20px;
+            /* Space around the element */
+            border-radius: 5px;
+            /* Rounded corners */
+        }
+
+        .footer-container {
+            display: flex;
+            /* Flexbox for footer items */
+            justify-content: space-between;
+            /* Space between left and right items */
+            align-items: center;
+            /* Center items vertically */
+            margin-top: 8px;
+            /* Margin above footer container */
+            padding: 10px;
+            /* Padding inside footer container */
+        }
+        /* LearnSphere text styling and hover effect */
+        .learn-sphere {
+            text-decoration: none;
+            font-size: 2em;
+            /* Keep LearnSphere font larger */
+            color: white;
+            transition: all 0.3s ease;
+        }   
+
+        .sphere {
+            color: #3498db;
+        }
+
+        .learn-sphere:hover {
+            color: #1abc9c;
+            transform: scale(1.05);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        p {
+            font-size: 20px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #2c3e50; padding: 20px; color: white;">
+        <div class="footer-content" style="display: flex; justify-content: space-between;">
+            <div class="footer-columns" style="display: flex; gap: 20px;">
+                <div class="footer-column" style="display: inline-block; text-align: left; margin-right: 100px;">
+                    <p><a href="#">About Us</a></p>
+                    <p><a href="#">Contact Us</a></p>
+                </div>
+                <div class="footer-column" style="display: inline-block; text-align: left; margin-right: 100px;">
+                    <p><a href="#">Development Team</a></p>
+                </div>
+                <div class="footer-column" style="display: inline-block; text-align: left; margin-right: 100px;">
+                    <p><a href="#">Terms</a></p>
+                    <p><a href="#">Privacy Policy</a></p>
+                    <p><a href="#">Cookie Settings</a></p>
+                </div>
+            </div>
+            <h3 class="bordered-element"><a href="#" style="color: white; text-decoration: none;">English</a></h3>
+        </div>
+
+        <div class="footer-container">
+            <div style="text-align: left;">
+                <a href="#" class="learn-sphere">Learn<span class="sphere">Sphere</span></a>
+            </div>
+            <span style="text-align: right;">&copy; <span id="year"></span> LearnSphere. All rights reserved.</span>
+        </div>
+    </footer>
+    <script>
+        // Update year dynamically
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

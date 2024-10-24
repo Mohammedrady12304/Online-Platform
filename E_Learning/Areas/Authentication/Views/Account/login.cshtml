@@ -1,0 +1,119 @@
+﻿@using E_Learning.Areas.Authentication.Models;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model LoginRequest
+@{
+    Layout = "_AuthonticationLayout";
+}
+
+
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
+                                <form method="post" asp-action="Login">
+                                    <!-- Email input -->
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for="Email">Email address</label>
+                                        <input type="email" asp-for="Email" class="form-control" />
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <!-- Password input -->
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" asp-for="Password">Password</label>
+                                        <div class="input-group">
+                                            <input asp-for="Password" type="password" id="password" class="form-control" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" onclick="togglePassword()">
+                                                    <i id="eyeIcon" class="fas fa-eye"></i>
+                                                </span>
+                                            </div>
+                                        </div>                                       
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                    <!-- 2 column grid layout for inline styling -->
+                                    <div class="row mb-4 ">
+                                        <div class="col d-flex justify-content-center">
+                                            <!-- Checkbox -->
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"  asp-for="RememberMe"  />
+                                                <label class="form-check-label" asp-for="RememberMe"> Remember me </label>
+                                            </div>
+                                        </div>
+
+            
+                                    </div>
+
+                                    <!-- Submit button -->
+                                    <div class="text-center">
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block">Sign in</button>
+                                        @* <div asp-validation-summary="All" class="text-danger"></div> *@
+                                        <div class="col">
+                                            <!-- Simple link -->
+                                            <a href="#!">Forgot password?</a>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <!-- Register buttons -->
+                                    <div class="text-center">
+
+                                        <a asp-action="Register" class="btn btn-close-white ">Register</a>
+                                       @*  <p>or sign up with:</p>
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </button>
+
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                            <i class="fab fa-google"></i>
+                                        </button>
+
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                            <i class="fab fa-twitter"></i>
+                                        </button>
+
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                            <i class="fab fa-github"></i>
+                                        </button> *@
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon = document.getElementById("eyeIcon");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
+}

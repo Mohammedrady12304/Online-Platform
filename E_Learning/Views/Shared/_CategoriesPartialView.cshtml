@@ -1,0 +1,112 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<style>
+
+    .menu-bar {
+        background-color: var(--color-black);
+        height: 80px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 5%;
+        position: relative;
+    }
+
+    .menu-bar ul {
+        list-style: none;
+        display: flex;
+    }
+
+    .menu-bar ul li {
+        /* width: 120px; */
+        padding: 10px 30px;
+        /* text-align: center; */
+
+        position: relative;
+    }
+
+    .menu-bar ul li a {
+        font-size: 20px;
+        color: var(--color-white);
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .menu-bar ul li a:hover {
+        color: var(--color-primary);
+    }
+
+    .fas {
+        float: right;
+        margin-left: 10px;
+        padding-top: 3px;
+    }
+
+    /* dropdown menu style */
+    .dropdown-menu {
+        display: none;
+    }
+
+    .menu-bar ul li:hover .dropdown-menu {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        background-color: var(--color-black);
+    }
+
+    .menu-bar ul li:hover .dropdown-menu ul {
+        display: block;
+        margin: 10px;
+    }
+
+    .menu-bar ul li:hover .dropdown-menu ul li {
+        width: 150px;
+        padding: 10px;
+    }
+
+    .dropdown-menu-1 {
+        display: none;
+    }
+
+    .dropdown-menu ul li:hover .dropdown-menu-1 {
+        display: block;
+        position: absolute;
+        left: 150px;
+        top: 0;
+        background-color: var(--color-black);
+    }
+</style>
+
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Categories
+    </a>
+    <div class="dropdown-menu">
+        <ul>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li>
+                <a href="#">Team <i class="fas fa-caret-right"></i></a>
+
+                <div class="dropdown-menu-1">
+                    <ul>
+                        <li><a href="#">Team-1</a></li>
+                        <li><a href="#">Team-2</a></li>
+                        <li><a href="#">Team-3</a></li>
+                        <li><a href="#">Team-4</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a href="#">FAQ</a></li>
+        </ul>
+    
+    </div>
+</li>

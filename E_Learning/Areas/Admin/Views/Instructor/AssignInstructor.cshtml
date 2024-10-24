@@ -1,0 +1,25 @@
+﻿@model AssignInstructorViewModel
+
+<div class="container">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    <h2>Assign Instructor</h2>
+    <hr />
+    <form asp-action="AssignInstructor" method="post">
+
+        <div class="form-group">
+            <label asp-for="InstructorUsername">Instructor Username</label>
+            <input asp-for="InstructorUsername" class="form-control" required />
+            <span asp-validation-for="InstructorUsername"></span>
+        </div>
+        <br />
+        <br />
+        <button type="submit" class="btn btn-primary">Assign Instructor</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/Admin/Instructor/InstructorList" class="btn btn-danger">Back</a>
+    </form>
+</div>

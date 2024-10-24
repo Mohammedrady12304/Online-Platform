@@ -1,0 +1,25 @@
+﻿<div class="card-columns">
+
+    @* @if (User.IsInRole("Admin")) *@
+    @* { *@
+    <a asp-area="Admin" asp-controller="Admin" asp-action="AdminList">
+        <div class="card bg-success">
+            <div class="card-body text-center">
+                <p class="card-text">Admins</p>
+            </div>
+        </div>
+    </a>
+    @* } *@
+
+    <br />
+
+    <a asp-area="Admin" asp-controller="Instructor" asp-action="InstructorList">
+        <div class="card bg-primary">
+            <div class="card-body text-center">
+                <p class="card-text">Instructors</p>
+            </div>
+        </div>
+    </a>
+
+    <br />
+</div>

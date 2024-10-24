@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+
+@* 
+
+@foreach(var category in Model)
+{
+    <div class="row">
+        @category.Name
+    </div>
+    <div class="row">
+        @foreach(var subCategory in category.SubCategories)
+        {
+                <div class="row">
+            @foreach(var course in subCategory.Courses.ToList())
+            {
+                    <div class="card border-primary mb-3" style="max-width: 20rem;">
+                        <div class="card-header">@course.Title</div>
+                        <div class="card-body">
+                            <h4 class="card-title">Primary card title</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+            }
+                </div>
+        }
+    </div>
+}
+
+ 
+
+ *@
+<a class="card-link" href ="@(Url.Action("Index", "Course"))">
+
+<div  class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Header</div>
+    <div class="card-body">
+        <h4 class="card-title">Primary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+</div>
+ </a>
+<a class="card-link" href ="@(Url.Action("Test", "Course"))">
+
+<div  class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Header</div>
+    <div class="card-body">
+        <h4 class="card-title">Primary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+</div>
+ </a>
+
+

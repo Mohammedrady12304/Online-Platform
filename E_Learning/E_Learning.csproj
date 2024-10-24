@@ -1,0 +1,108 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\checkout\**" />
+    <Content Remove="wwwroot\checkout\**" />
+    <EmbeddedResource Remove="wwwroot\checkout\**" />
+    <None Remove="wwwroot\checkout\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Payment\Views\Cart\_PayWaysPartialView.cshtml" />
+    <Content Remove="Views\Shared\_AddtoCartBTN.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PayPalCheckoutSdk" Version="1.0.4" />
+    <PackageReference Include="SendGrid" Version="9.29.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Authentication\Data\" />
+    <Folder Include="Areas\Payment\Data\" />
+    <Folder Include="Areas\Student\Models\" />
+    <Folder Include="Views\Category\www.google-analytics.com\" />
+    <Folder Include="Views\Course\" />
+    <Folder Include="wwwroot\Images\Courses\" />
+    <Folder Include="wwwroot\Videos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Payment\Views\Cart\_PayWaysPartialView.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Payment\Views\Cart\_PayWaysPartialView.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_AddtoCartBTN.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Payment\Views\Cart\_PayWaysPartialView.cshtml" />
+    <None Include="Areas\Payment\Views\Checkout\Index.cshtml" />
+    <None Include="Areas\Payment\Views\Checkout\Processing.cshtml" />
+    <None Include="Areas\Payment\Views\Checkout\Success.cshtml" />
+    <None Include="Views\AboutUs\Index.cshtml" />
+    <None Include="Views\Category\Index.cshtml" />
+    <None Include="Views\ContactUs\Create.cshtml" />
+    <None Include="Views\ContactUs\Index.cshtml" />
+    <None Include="Views\ContactUs\Success.cshtml" />
+    <None Include="Areas\Course\Views\Course\ViewCourse.cshtml" />
+    <None Include="Views\Shared\_AddtoCartBTN.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Admin\Views\General\ChangeImage.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Admin\Views\General\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Home\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Home\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Search\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Search\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Shared\_AddtoCartBTN.cshtml" />
+  </ItemGroup>
+
+</Project>

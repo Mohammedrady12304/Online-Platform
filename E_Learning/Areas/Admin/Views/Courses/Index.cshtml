@@ -1,0 +1,47 @@
+﻿@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+
+<div class="card-columns">
+    @*
+    <div class="card bg-primary">
+        <div class="card-body text-center">
+            <p class="card-text">Courses From Instructors</p>
+        </div>
+    </div>
+
+    <br /> *@
+
+    <a asp-area="Admin" asp-controller="Courses" asp-action="Create" >
+    <div class="card bg-warning">
+        <div class="card-body text-center">
+            <p class="card-text">Add Courses</p>
+        </div>
+    </div>
+    </a>
+    <br />
+    <a href="#" onclick="document.getElementById('myForm').submit();">
+        <div class="card bg-secondary">
+            <div class="card-body text-center">
+                <p class="card-text">View My Courses</p>
+            </div>
+        </div>
+    </a>
+    <form id="myForm" asp-action="CoursesList" asp-area="Admin" asp-controller="Courses" method="POST" style="display: none;">
+        <input type="hidden" id="userId" name="userId" value="@user?.Id" />
+        <!-- Add more input fields as needed -->
+    </form>
+    <br />
+    
+    @if(User.IsInRole("Admin"))
+    {
+        <a asp-area="Admin" asp-controller="Courses" asp-action="CoursesList">
+        <div class="card bg-success">
+            <div class="card-body text-center">
+                <p class="card-text">View All Courses</p>
+            </div>
+        </div>
+        </a>
+    }
+</div>

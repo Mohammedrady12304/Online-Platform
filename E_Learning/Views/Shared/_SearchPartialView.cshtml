@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+@* <nav class="navbar navbar-light bg-light">
+  <div class="container">
+    <div class="mx-auto" style="width: 100%; max-width: 600px;">
+      <form method="get" asp-area="Search" asp-controller="Search" asp-action="Search" class="d-flex">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search"></i> <!-- Add a search icon -->
+          </span>
+          <input class="form-control border-start-0"
+                 type="search"
+                 placeholder="Search for anything"
+                 aria-label="Search"
+                 name="query"
+                 value="@ViewBag.Query"
+                 style="border-radius: 20px;"/>
+        </div>
+      </form>
+    </div>
+  </div>
+</nav> *@
+
+
+
+<form method="get" asp-area="Search" asp-controller="Search" asp-action="Search" class="d-flex mb-4">
+    <input class="form-control me-2"
+           type="search"
+           placeholder="Search courses..."
+           aria-label="Search"
+           name="query"
+           value="@ViewBag.Query" />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>

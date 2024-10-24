@@ -1,0 +1,128 @@
+﻿@using E_Learning.Areas.Search.Data
+@using E_Learning.Areas.Search.Models
+
+
+@model PaginatedList<CourseSearchViewModel>
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Search Courses";
+}
+
+<!-- Bootstrap 4/5 Stylesheet Link -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar: Filters -->
+        <div class="col-md-3">
+            <h4>Filters</h4>
+            <form method="get" asp-action="Search">
+                <div class="form-group">
+                    <label for="query">Search</label>
+                    <input type="text" class="form-control" id="query" name="query" value="@ViewBag.Query" placeholder="Search courses..." />
+                </div>
+@* 
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control" id="category" name="category">
+                        <option value="">All Categories</option>
+                        <!-- Add more categories dynamically -->
+                        <option value="Development">Development</option>
+                        <option value="Business">Business</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="language">Language</label>
+                    <select class="form-control" id="language" name="language">
+                        <option value="">All Languages</option>
+                        <option value="English">English</option>
+                        <option value="Spanish">Spanish</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="level">Level</label>
+                    <select class="form-control" id="level" name="level">
+                        <option value="">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div> *@
+
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </form>
+        </div>
+
+        <!-- Main Content: Search Results -->
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Search Results</h4>
+                <p>@Model.Count() results found</p>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="row">
+                    @foreach (var course in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <img src="~/Images/Courses/@course.Image" class="card-img-top" alt="Course Image" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@course.Title</h5>
+                                    <p class="card-text">@course.summery</p>
+                                    <p>Instructor: @course.InstructorName</p>
+                                    <div>
+                                        <span class="badge badge-secondary">@course.Level</span>
+                                        <br />
+                                        <span class="text-muted">Language: @course.Language</span>
+                                    </div>
+                                    <p class="mt-2">Rating: @course.Rating</p>
+                                    <p>Price:$@course.Price</p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a asp-area="Course" asp-controller="Course" asp-action="Index" asp-route-id="@course.CourseId" class="btn btn-primary">View Course</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Pagination Controls -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        @if (Model.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="?query=@ViewBag.Query&pageNumber=@(Model.PageIndex - 1)">Previous</a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                                <a class="page-link" href="?query=@ViewBag.Query&pageNumber=@i">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="?query=@ViewBag.Query&pageNumber=@(Model.PageIndex + 1)">Next</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+            else
+            {
+                <p>No courses found.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@* <!-- Bootstrap 4/5 Script Link --> *@
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

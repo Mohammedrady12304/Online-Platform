@@ -1,0 +1,64 @@
+﻿@model  IEnumerable<AboutUs>;
+
+@{
+    ViewData["Title"] = "AboutUs";
+}
+
+<div class="row">
+    <div class="col">
+
+        <h1 class="text-center" style="background-color:lightgray;margin-bottom: 0px">About us</h1>
+    </div>
+    <div class="col" style="margin-bottom: 300px;">
+        <img src="~/assets/images/hero-bg.jpg" alt="photo" />
+
+    </div>
+    @foreach(var aboutUs in Model)
+    {
+
+        <h3 class="row" style="padding:30px;background-color:#f7f9fa; ">@aboutUs.Title</h3>
+        if (aboutUs.Id % 2 != 0)
+        {
+
+                <div class="card border-primary mb-3" style="max-width:100%">
+             <div class="row">
+                    <div class="col" style="font-size: xxx-large">
+                        
+
+                    @aboutUs.Content
+                        
+                    </div>
+                    <div class="col">
+                    <img src="@aboutUs.ImageUrl" class="img-fluid" style="max-width: 100%; height: auto; border-radius:8px" alt="photo"/>
+
+                 </div>
+                </div>
+            </div>
+
+
+        }
+        else
+        {
+            <div class="card border-primary mb-3" style="max-width:100%">
+                <div class="row">
+                     <div class="col">
+                        <img src="@aboutUs.ImageUrl" class="img-fluid" style="max-width: 100%; height: auto; border-radius:8px " alt="photo" />
+
+                    </div>
+
+                    <div class="col" style="font-size: xxx-large">
+                   
+
+                        @aboutUs.Content
+                  
+                    </div>
+
+            
+                </div>
+            </div>
+            
+        }
+    }
+</div>
+
+

@@ -1,0 +1,68 @@
+﻿
+@{
+    var user  = await UserManager.GetUserAsync(User);
+}
+
+<div class="card-columns">
+
+
+    <a asp-area="Admin" asp-controller="General" asp-action="ChangeImage" asp-route-id="@user?.Id">
+        <div class="card bg-success">
+            <div class="card-body text-center">
+                <p class="card-text">Change Image</p>
+            </div>
+        </div>
+    </a>
+
+    <br />
+
+    @if (User.IsInRole("Instructor") || User.IsInRole("Admin"))
+    {
+        <a asp-area="Admin" asp-controller="General" asp-action="ChangeImage" asp-route-id="@user?.Id">
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p class="card-text">Course Image</p>
+                </div>
+            </div>
+        </a>
+    }
+    @* <br />
+    <a asp-area="Admin" asp-controller="General" asp-action="Edit" asp-route-id="@user?.Id">
+        <div class="card bg-warning">
+            <div class="card-body text-center">
+                <p class="card-text">update Data</p>
+            </div>
+        </div>
+
+    </a> *@
+
+    @*   <br />
+    <a asp-area="Admin" asp-controller="General" asp-action="CoursesList">
+    <div class="card bg-success">
+    <div class="card-body text-center">
+    <p class="card-text">Coupon</p>
+    </div>
+    </div>
+    </a>
+    *@
+    @*  <br/>
+    <a asp-area="Admin" asp-controller="General" asp-action="Create">
+    <div class="card bg-primary">
+    <div class="card-body text-center">
+    <p class="card-text">Discount</p>
+    </div>
+    </div>
+    </a> *@
+    <br />
+
+    <a asp-area="Authentication" asp-controller="Account" asp-action="Logout" >
+        <div class="card bg-danger">
+            <div class="card-body text-center">
+                <p class="card-text">Log Out</p>
+            </div>
+        </div>
+    </a>
+
+
+
+</div>

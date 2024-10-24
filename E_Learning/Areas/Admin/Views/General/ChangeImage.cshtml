@@ -1,0 +1,39 @@
+﻿@model ChangeImageViewModel
+
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<img id="ImagePreview" src="~/Images/Users/@Model.ImageUrl" width="300" height="300" />
+<br />
+<form asp-controller="General" asp-area="Admin" asp-action="ChangeImage" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="Image">Change Image</label>
+        <input asp-for="Image" id="ImageInput" type="file" class="form-control-file" />
+        <span asp-validation-for="Image"></span>
+    </div>
+
+    <input asp-for="ImageUrl" type="text" hidden />
+
+    <input asp-for="CourseId" type="text" hidden />
+    <div class="form-group">
+    <button type="submit" class="btn btn-primary">Update Image</button>
+    </div>
+</form>
+<br />
+<a asp-Controller="General" asp-action="Index" asp-area="Admin" class="btn btn-danger" asp-route-id="@Model.CourseId">Back</a>
+
+<script>
+    document.getElementById('ImageInput').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('ImagePreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

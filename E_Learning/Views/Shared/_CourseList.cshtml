@@ -1,0 +1,82 @@
+﻿@using E_Learning.Areas.Home.Models;
+
+@using System.Security.Claims;
+
+@model IEnumerable<Course>
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Fetch the current user's ID
+}
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            @for (int i = 0; i < Model.Count(); i += 3)
+            {
+                <div class="row mb-3">
+                    @for (int j = i; j < i + 3 && j < Model.Count(); j++)
+                    {
+                        var course = Model.ElementAt(j); // Access course by index
+                        <div class="col-md-4">
+                            <div class="card shadow-sm border-0 rounded-3 overflow-hidden mb-3">
+                                <div class="row g-0">
+                                    <div class="col-12">
+                                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                            <img src="~/Images/Courses/@course.Image" class="w-100 rounded-3" alt="@course.Title" style="object-fit: cover; aspect-ratio: 16/9;" />
+                                            <a href="/Course/Course/Index/@course.Id">
+                                                <div class="hover-overlay">
+                                                    <div class="mask" style="background-color: rgba(0, 0, 0, 0.2);"></div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold text-primary">@course.Title</h5>
+                                            <div class="d-flex flex-row mb-2 align-items-center">
+                                                <span class="text-muted">Number of Registers: @course.NumberOfRegisters</span>
+                                            </div>
+
+                                            <div class="text-muted small">
+                                                @foreach (var feature in course.Description.Split("."))
+                                                {
+                                                    <div class="mt-1">
+                                                        <span class="text-primary">•</span> <span>@feature.Trim()</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="d-flex flex-column justify-content-center align-items-start p-3">
+                                            <a href="/Course/Course/Index/@course.Id" class="btn btn-primary w-100 mb-2">Details</a>
+
+                                            @if (course.carts.Any(c => c.CourseId == course.Id && c.UserId == userId))
+                                            {
+                                              <button class="btn btn-danger w-100 remove-from-cart" data-course-id="@course.Id">
+                                                      Remove from Cart
+                                               </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-success w-100 add-to-cart" data-course-id="@course.Id">
+                                                    Add to Cart
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+

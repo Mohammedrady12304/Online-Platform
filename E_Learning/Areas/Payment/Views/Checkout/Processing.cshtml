@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+<div class="text-center">
+
+    <form asp-action="Processing" asp-controller="Checkout" method="post">
+        <label class="text-info">Your Payment was successfully processed</label>
+        <br />
+        <br />
+        <br />
+        <p class="blockquote text-center">
+            The Details of the transaction are <br />
+            Customer : @ViewBag.Customer
+            Amount : USD$ @ViewBag.AmountPaid
+
+        </p>
+
+    </form>
+
+</div>

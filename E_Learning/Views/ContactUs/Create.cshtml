@@ -1,0 +1,47 @@
+﻿@model ContactUs;
+@{
+    ViewData["Title"] = "Message";
+}
+
+<h1 class="text-center" style="font-family:'Times New Roman', Times, serif;margin-top:50px;">Write your message </h1>
+
+<form asp-controller="ContactUs" class="d-flex justify-content-center align-items-center" style="height: 100vh;" enctype="multipart/form-data">
+    <div class="m-auto mt-3">
+
+    <div>
+        <label asp-for="FullName" class="form-label mt-4"></label>
+        <input asp-for="FullName" type="text" class="form-control" style="width:500px" placeholder="Enter your full name">
+        <span asp-validation-for="FullName" class="text-danger d-blocked"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email" class="form-label mt-4"></label>
+        <input asp-for="Email" type="email" class="form-control" style="width:500px" placeholder="Enter email">
+        <span asp-validation-for="Email" class="text-danger d-blocked"></span>
+    </div>
+
+    <div>
+        <label asp-for="Subject" class="form-label mt-4"></label>
+        <input asp-for="Subject" type="text" class="form-control" style="width:500px" placeholder="Subject">
+        <span asp-validation-for="Subject" class=" text-danger d-blocked"></span>
+    </div>
+
+    <div>
+        <label asp-for="Message" class="form-label mt-4"></label>
+        <textarea asp-for="Message" type="text" class="form-control" style="height: 100px; text-align: left; padding-top: 0;width:500px ;"></textarea>
+        <span asp-validation-for="Message" class="text-danger d-blocked"></span>
+    </div>
+
+
+        <button type="submit" class="btn btn-primary" style=" margin-top: 40px; margin-left: 145px;">
+            Send your message
+        </button>
+   </div>
+    
+</form>
+@section Scripts{
+    
+<partial name="_ValidationScriptsPartial" />
+}
+
+

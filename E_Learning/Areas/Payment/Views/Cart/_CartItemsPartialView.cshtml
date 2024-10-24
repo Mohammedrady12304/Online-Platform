@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Cart>
+
+
+@{
+
+}
+
+@foreach (var cart in Model)
+{
+    <!-- Single item -->
+    <div class="row">
+        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+            <!-- Image -->
+
+            <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                <img src="~/Images/Courses/@cart?.Course?.Image"
+                     class="w-100" alt="Course_Image" />
+                <a asp-area="Course" asp-controller="Course" asp-action="Index" asp-route-action="@cart?.Course?.Id">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                </a>
+            </div>
+            <!-- Image -->
+        </div>
+
+        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+            <!-- Data -->
+            <p><strong>@cart?.Course?.Title</strong></p>
+            <p>price: @cart?.Course?.Price </p>
+            <p>Summary : @cart?.Course?.Summary</p>
+            <!-- Data -->
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <!-- Quantity -->
+            <div class="d-flex mb-4" style="max-width: 300px">
+                <form class="delete-cart-form" asp-action="DeleteFromCart" method="post" data-course-id="@cart?.CourseId">
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+  
+             @*    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-sm mb-2" data-mdb-tooltip-init
+                        title="Move to the wish list">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                    </svg>
+                </button> *@
+            </div>
+           
+        </div>
+    </div>
+    <!-- Single item -->
+    <hr class="my-4" />
+}

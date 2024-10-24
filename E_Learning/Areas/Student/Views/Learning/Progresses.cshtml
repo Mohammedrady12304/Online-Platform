@@ -1,0 +1,56 @@
+﻿@model IEnumerable<StudentCourseProgress>
+<style>
+.my-progresses-page {
+    padding: 20px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.progress-bar {
+    background-color: #28a745;
+    height: 20px;
+    color: white;
+    text-align: center;
+}
+
+.text-muted {
+    font-size: 0.9em;
+    color: #6c757d;
+}
+</style>
+
+
+<div class="container my-progresses-page">
+    <h2>My Course Progresses</h2>
+    <div class="row">
+        @foreach (var progress in Model)
+        {
+            <a asp-area="Course" asp-controller="Course" asp-action="ViewCourse" asp-route-Id="@progress.CourseId">
+                <div class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="~/Images/Courses/@progress.CourseThumbnail" alt="@progress.CourseTitle">
+                    <div class="card-body">
+                        <h5 class="card-title">@progress.CourseTitle</h5>
+@*                         <p class="card-text">Instructor: @progress.InstructorName</p>
+ *@                        <div class="progress mb-2">
+                            <div class="progress-bar" role="progressbar" style="width: @(progress.ProgressRate * 100)%" aria-valuenow="@(progress.ProgressRate * 100)" aria-valuemin="0" aria-valuemax="100">
+                                @((progress.ProgressRate * 100).ToString("0"))%
+                            </div>
+                        </div>
+                        <p class="text-muted">Last updated: @progress.LastUpdated.ToString("MMMM dd, yyyy hh:mm tt")</p>
+                    </div>
+                </div>
+            </div>
+            </a>
+        }
+    </div>
+</div>

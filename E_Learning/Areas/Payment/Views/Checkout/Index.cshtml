@@ -1,0 +1,64 @@
+﻿@using Microsoft.Extensions.Options
+
+
+
+@{
+    ViewData["Title"] = "CheckoutIndex";
+}
+
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <div id="paypal-button-container"></div>
+</div>
+
+<article>
+    <label>Amount : @ViewBag.DollarAmount</label>
+</article>
+
+@section Scripts {
+    @*Use ViewBag.ClientId to load Paypal Javascript SDK*@
+    <script src="https://www.paypal.com/sdk/js?client-id=ARhjVr3cyacpJMlXbUQfis9jz40E6HOAUByIJhmFD_0YiHM6L_2Yr3Z47nLbLGJPCHND-Xg97pX0hApo"></script>
+
+    <script>
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'silver',
+                tagline: 'false'
+            },
+            createOrder: (data, actions) => {
+
+                debugger
+                return fetch("@Url.Action("Order")", {
+                    method: "post",
+                }).then((response) => {
+                    if (!response.ok) {
+                        return response.json().then(error => { throw error; });
+                    }
+
+                    return response.json();
+                }).then((order) => order.id)
+                    .catch(error => alert(error.message));
+            },
+            onApprove: (data, actions) => {
+                return fetch(`@Url.Action("Capture")?orderId=${data.orderID}`, {
+                    method: "post",
+                }).then((response) => {
+                    if (!response.ok) {
+                        return response.json().then(error => { throw error; });
+                    }
+
+                    window.location.href = "@Url.Action("Success")";
+                }).catch(error => alert(error.message));
+            }
+        }).render('#paypal-button-container');
+    </script>
+}
+
+
+
+

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<SectionLessons>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Lesson";
+    ViewBag.page = "Lesson";
+}
+
+<a asp-area="Admin" asp-controller="Lesson" asp-action="Create" asp-route-id="@ViewBag.SectionId " class="btn btn-primary">Add</a>
+<a href="/Admin/Section/Index/@ViewBag.CourseId" class="btn btn-danger">Back</a>
+
+<div>
+    <hr/>
+    <table id="coursesTable" class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th data-column="title" class="sortable">Title</th>
+                <th data-column="order" class="sortable">order</th>
+                @* <th data-column="Videos" class="sortable">Number of Videos</th> *@
+                @* <th>Add Lesson</th> *@
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var lesson in Model)
+            {
+
+                <tr id="row-@lesson.Id">
+                    <td>@lesson.Title</td>
+                    <td>@lesson.Order</td>
+                  @*<td>@Section.NumberOfVideos</td> *@
+                    @* <td><a href="/Admin/Lesson/Create?id=@Section.Id" class="btn btn-dark">Add</a></td> *@
+                    <td><a href="/Admin/Lesson/Detail?id=@lesson.Id" class="btn btn-close-white">View</a></td>
+                    <td><a href="/Admin/Lesson/Edit?id=@lesson.Id" class="btn btn-secondary">Edit</a></td>
+                    <td>
+                    @*
+                    <form action="/Admin/Courses/Delete/@course.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this instructor?');">
+                    <input type="submit" class="delete-btn" value="Delete Course" />
+                    </form>
+                    *@
+                        <button class="delete-btn" data-id="@lesson.Id">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.querySelectorAll('.sortable').forEach(header => {
+        header.addEventListener('click', function () {
+            let table = document.getElementById('coursesTable');
+            let tbody = table.querySelector('tbody');
+            let rows = Array.from(tbody.querySelectorAll('tr'));
+            let column = this.getAttribute('data-column');
+            let ascending = this.classList.contains('asc');
+
+            // Remove sorting classes from other headers
+            document.querySelectorAll('.sortable').forEach(header => header.classList.remove('asc', 'desc'));
+
+            // Toggle sorting direction
+            this.classList.toggle('asc', !ascending);
+            this.classList.toggle('desc', ascending);
+
+            let getValue = (row) => {
+                switch (column) {
+                    case 'title':
+                        return row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                    case 'order':
+                        return row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    case 'Videos':
+                        return parseFloat(row.querySelector('td:nth-child(3)').textContent);
+                    default:
+                        return row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                }
+            };
+
+            rows.sort((a, b) => {
+                let aValue = getValue(a);
+                let bValue = getValue(b);
+                return ascending ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
+            });
+
+            // Append sorted rows to the tbody
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '.delete-btn', function () {
+        const rowId = $(this).data('id'); // Get the data-id attribute from the button
+
+        $.ajax({
+            url: '/Admin/Lesson/Delete', // Replace with your server-side URL
+            type: 'POST',
+            data: { id: rowId },
+            success: function (response) {
+                if (response.success) {
+                    // Remove the corresponding row from the table
+                    $('#row-' + rowId).remove();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Failed to delete the course. Please try again.');
+            }
+        });
+    });
+</script>
+

@@ -1,0 +1,86 @@
+﻿<div class="body">
+    <div class="login-container">
+        <h2>Forget Password</h2>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="SendResetPasswordEmail" asp-controller="Account" asp-area="Authentication"  method="post">
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" required name="email" value="@Model">
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Reset Code</button>
+        </form>
+    </div>
+</div>
+<style>
+    .body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .login-container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+
+    .input-group {
+        margin: 20px;
+    }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-group input {
+            width: 350px;
+            margin-left: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    .remember-me {
+        padding: 20px;
+    }
+
+    .submit-btn {
+        text-align: center;
+        margin: 20px;
+        width: 300px;
+        padding: 15px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+</style>
+
+
+
+
+
+
+
+
+

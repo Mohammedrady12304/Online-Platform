@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Cart>
+
+@{
+    Layout = "_Layout";
+    var cardSummary = new { };
+}
+
+<section class="h-100 gradient-custom" >
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center my-4" >
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Cart - items</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="cartItems">
+                            @await Html.PartialAsync("_CartItemsPartialView", Model)
+                        </div>
+
+                    </div>
+                </div>
+                
+               <partial name="_PayWaysPartialView" />
+               
+               <partial name="_cartsummaryPartialView" data="@Model">
+               
+               
+            </div>
+        </div>
+   </div>
+</section>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Handle delete form submission via AJAX
+            $(".delete-cart-form").submit(function (e) {
+                e.preventDefault(); // Prevent normal form submission
+                var form = $(this);
+                var courseId = form.data("course-id");
+
+                $.ajax({
+                    url: form.attr("action"),
+                    type: "POST",
+                    data: { courseId: courseId },
+                    success: function (response) {
+                        // Update the cart items section with the returned partial view
+                        //$("#cartItems").html(response);
+                        // $("#cartsummary").html(@ViewBag.cartsummary)
+                        location.reload();
+                    },
+                    error: function () {
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+}

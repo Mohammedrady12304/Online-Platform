@@ -1,0 +1,33 @@
+﻿
+
+@* Must take some changes *@
+@if (course.carts.Any(c => c.CourseId == course.Id && c.UserId == userId))
+{
+    <button class="btn btn-danger remove-from-cart" data-course-id="@course.Id">Remove from Cart</button>
+}
+else
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        <button class="btn btn-primary add-to-cart" data-course-id="@course.Id">Add to Cart</button>
+    }
+    else
+    {
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            // Function to programmatically click the button
+            function triggerButtonClick() {
+                $('#Login').click(); // jQuery way to trigger the click event
+            }
+
+            // Call the function automatically after 2 seconds
+            setTimeout(triggerButtonClick, 2000);
+
+            // Handle the actual click event
+            $('#Login').on('click', function () {
+                alert("Button was clicked!");
+            });
+        </script>
+    }
+}

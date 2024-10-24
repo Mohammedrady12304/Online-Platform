@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using E_Learning.Areas.Course.Models
+
+@model UserDataShortcutViewModel
+
+@{
+}
+
+
+<div id="section-tutor" class="section-tutor section pb-5">
+	<div class="container">
+		<div class="container-inner p-5 position-relative theme-bg-primary rounded">
+			<div class="section-bg-container"></div>
+			<div class="row over-section-bg">
+				<div class="col-12 col-lg-3">
+					<div class="tutor-img-holder mb-5 mb-lg-0 text-center">
+						<img class="tutor-profile img-fluid rounded" src="~/Images/Users/@Model.Image" alt="">
+					</div><!--//tutor-img-holder-->
+				</div><!--//col-->
+				<div class="col-12 col-lg-9">
+					<div class="pl-lg-4">
+						<h3 class="section-title mb-4 text-white text-lg-start">Meet The Tutor </h3>
+						<p>@Model.Bio</p>
+						<div class="text-center text-lg-start">
+							<ul class="social-list list-unstyled mt-4 mb-0 mx-auto mx-lg-0">
+								@foreach (var connect in Model.userAccounts)
+								{
+									<li class="list-inline-item"><a href="@connect.url"><i class="fa-brands fa-@connect.SocialMedia?.Name fa-fw"></i></a></li>
+								}
+
+								@* <li class="list-inline-item"><a href="#"><i class="fa-brands fa-x-twitter fa-fw"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i class="fa fa-globe fa-fw"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i class="fa fa-blog fa-fw"></i></a></li> *@
+							</ul><!--//social-list-->
+						</div>
+					</div>
+				</div><!--//col-->
+			</div><!--//row-->
+		</div><!--//container-inner-->
+	</div><!--//container-->
+</div><!--//section-tutor-->

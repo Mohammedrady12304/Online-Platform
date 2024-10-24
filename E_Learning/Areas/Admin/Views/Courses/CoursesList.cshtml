@@ -1,0 +1,137 @@
+﻿@model IEnumerable<CourseListViewModel>
+
+@{
+    ViewData["Title"] = "Courses";
+    ViewBag.page = "Courses";
+}
+
+<a href="/Admin/Courses/Create" class="btn btn-primary">Add Course</a>
+
+@if (User.IsInRole("Admin") || User.IsInRole("Instructor"))
+{
+    <a href="/Admin/Courses/Index" class="btn btn-primary">Courses DashBoard</a>
+}
+
+<div>
+    <br />
+    <hr />
+    <table id="coursesTable" class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th data-column="image" class="sortable">Image</th>
+                <th data-column="title" class="sortable">Title</th>
+                <th data-column="instructorName" class="sortable">Instructor Name</th>
+                <th data-column="price" class="sortable">Price</th>
+                <th data-column="registers" class="sortable">Registers</th>
+                <th data-column="subcategory" class="sortable">Subcategory</th>
+                <th data-column="rating" class="sortable">Rating</th>
+                <th data-column="date" class="sortable">Date</th>
+                <th>Status</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr id="row-@course.Id">
+                    <td>
+                        <img src="~/Images/Courses/@course.Image" alt="Instructor_Image" width="100" height="100" />
+                    </td>
+                    <td>@course.Title</td>
+                    <td>@course.instructorName</td>
+                    <td>@course.Price</td>
+                    <td>@course.registers</td>
+                    <td>@course.SubCategoryname</td>
+                    <td>@course.Rating</td>
+                    <td>@course.CreatedDate</td>
+                    <td>@course.status</td>
+                    <td><a href="/Admin/Courses/Detail?id=@course.Id">View</a></td>
+                    <td><a href="/Admin/Courses/Edit?id=@course.Id">Edit</a></td>
+                    <td>
+@*                         <form action="/Admin/Courses/Delete/@course.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this instructor?');">
+                            <input type="submit" class="delete-btn" value="Delete Course" />
+                        </form> *@
+                        <button class="delete-btn" data-id="@course.Id">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.querySelectorAll('.sortable').forEach(header => {
+        header.addEventListener('click', function () {
+            let table = document.getElementById('coursesTable');
+            let tbody = table.querySelector('tbody');
+            let rows = Array.from(tbody.querySelectorAll('tr'));
+            let column = this.getAttribute('data-column');
+            let ascending = this.classList.contains('asc');
+
+            // Remove sorting classes from other headers
+            document.querySelectorAll('.sortable').forEach(header => header.classList.remove('asc', 'desc'));
+
+            // Toggle sorting direction
+            this.classList.toggle('asc', !ascending);
+            this.classList.toggle('desc', ascending);
+
+            let getValue = (row) => {
+                switch (column) {
+                    case 'title':
+                        return row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    case 'instructorName':
+                        return row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                    case 'price':
+                        return parseFloat(row.querySelector('td:nth-child(4)').textContent);
+                    case 'registers':
+                        return parseInt(row.querySelector('td:nth-child(5)').textContent);
+                    case 'subcategory':
+                        return row.querySelector('td:nth-child(6)').textContent.toLowerCase();
+                    case 'rating':
+                        return parseFloat(row.querySelector('td:nth-child(7)').textContent);
+                    case 'date':
+                        return new Date(row.querySelector('td:nth-child(8)').textContent);
+                    default:
+                        return row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                }
+            };
+
+            rows.sort((a, b) => {
+                let aValue = getValue(a);
+                let bValue = getValue(b);
+                return ascending ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
+            });
+
+            // Append sorted rows to the tbody
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '.delete-btn', function () {
+        const rowId = $(this).data('id'); // Get the data-id attribute from the button
+
+        $.ajax({
+            url: '/Admin/Courses/Delete', // Replace with your server-side URL
+            type: 'POST',
+            data: { id: rowId },
+            success: function (response) {
+                if (response.success) {
+                    // Remove the corresponding row from the table
+                    $('#row-' + rowId).remove();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Failed to delete the course. Please try again.');
+            }
+        });
+    });
+</script>
+

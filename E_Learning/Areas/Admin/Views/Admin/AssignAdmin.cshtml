@@ -1,0 +1,27 @@
+﻿@model AssignAdminViewModel
+
+<div class="container">
+    <h2>Assign Admin</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <form asp-action="AssignAdminRole" method="post">
+        <div class="form-group">
+            <label for="username">Admin Username</label>
+            <input asp-for="Username" class="form-control" placeholder="Enter admin username" required />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Assign Admin Role</button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <a href="/Admin/Admin/AdminList" class="btn btn-danger">Back</a>
+    </form>
+</div>

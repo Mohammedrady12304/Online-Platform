@@ -1,0 +1,47 @@
+﻿@model LessonViewModel
+
+@{
+    Layout = "_CourseLayout";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" required />
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Order"></label>
+        <input asp-for="Order" class="form-control" type="number" step="1" required />
+        <span asp-validation-for="Order"></span>
+
+    </div>
+    
+    @* <div class="form-group">
+        <input asp-for="AddLesson" type="checkbox" class="btn-check"  />
+        <label asp-for="AddLesson">Add Lesson</label>
+        <span asp-validation-for="AddLesson"></span>
+    </div> *@
+
+    <div class="form-group">
+        <label asp-for="Videourl">Video Url</label>
+        <input asp-for="Videourl" type="text" class="form-control" />
+        <span asp-validation-for="Videourl"></span>
+    </div>
+
+    <input asp-for="Id" class="form-control" value="@Model.Id" type="text" hidden />
+
+    <div class="form-group">
+        <label asp-for="SectionId">Section</label>
+        <select asp-for="SectionId" class="form-control"  asp-items="Model.sections"   required></select>
+        <span asp-validation-for="SectionId"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Lesson Data</button>
+    <a asp-area="Admin" asp-controller="Lesson" asp-action="Index" asp-route-Id="@Model.SectionId" class="btn btn-danger">
+        Back
+    </a>
+    <div asp-validation-summary="All" class="text-bg-danger" ></div>
+</form>

@@ -1,0 +1,35 @@
+﻿@model SectionViewModel
+
+@{
+    Layout = "_CourseLayout";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" required />
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="order"></label>
+        <input asp-for="order" class="form-control" type="number" step="1" required />
+        <span asp-validation-for="order"></span>
+
+    </div>
+    
+    @* <div class="form-group">
+        <input asp-for="AddLesson" type="checkbox" class="btn-check"  />
+        <label asp-for="AddLesson">Add Lesson</label>
+        <span asp-validation-for="AddLesson"></span>
+    </div> *@
+
+    <input asp-for="Id" class="form-control" value="@Model.Id" type="text" hidden />
+    <input asp-for="CourseId" class="form-control" value="@Model.CourseId" type="text" hidden />
+
+    <button type="submit" class="btn btn-primary">Update Section</button>
+    <a asp-area="Admin" asp-controller="Section" asp-action="Index" asp-route-Id="@Model.CourseId" class="btn btn-danger">
+        Back
+    </a>
+    <div asp-validation-summary="All" class="text-bg-danger" ></div>
+</form>

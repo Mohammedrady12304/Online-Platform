@@ -1,0 +1,110 @@
+﻿@model IEnumerable<E_Learning.Areas.Admin.Models.AdminViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Admin";
+    ViewBag.page = "Admin";
+}
+
+<a asp-area="Admin" asp-controller="Admin" asp-action="AssignAdmin"  class="btn btn-primary">Assign Admin</a>
+<a href="/Admin/Admin/Users" class="btn btn-danger">Back</a>
+
+<div>
+    <hr />
+    <table id="coursesTable" class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th data-column="Username" class="sortable">User Name</th>
+                <th data-column="Email" class="sortable">Email</th>
+                <th data-column="FullName" class="sortable">Full Name</th>
+                <th data-column="JoinDate" class="sortable">Join Date</th>
+                @* <th>View</th> *@
+                @* <th>Edit</th> *@
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var admin in Model)
+            {
+
+                <tr id="row-@admin.Username">
+                    <td>@admin.Username</td>
+                    <td>@admin.Email</td>
+                    <td>@admin.FullName</td>
+                    <td>@admin.CreatedDate</td>
+                    <td>
+                        <button class="delete-btn" data-id="@admin.Username">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.querySelectorAll('.sortable').forEach(header => {
+        header.addEventListener('click', function () {
+            let table = document.getElementById('coursesTable');
+            let tbody = table.querySelector('tbody');
+            let rows = Array.from(tbody.querySelectorAll('tr'));
+            let column = this.getAttribute('data-column');
+            let ascending = this.classList.contains('asc');
+
+            // Remove sorting classes from other headers
+            document.querySelectorAll('.sortable').forEach(header => header.classList.remove('asc', 'desc'));
+
+            // Toggle sorting direction
+            this.classList.toggle('asc', !ascending);
+            this.classList.toggle('desc', ascending);
+
+            let getValue = (row) => {
+                switch (column) {
+                    case 'Username':
+                        return row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                    case 'Email':
+                        return row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    case 'FullName':
+                        return parseFloat(row.querySelector('td:nth-child(3)').textContent);
+                    case 'JoinDate':
+                        return parseFloat(row.querySelector('td:nth-child(4)').textContent);
+                    default:
+                        return row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                }
+            };
+
+            rows.sort((a, b) => {
+                let aValue = getValue(a);
+                let bValue = getValue(b);
+                return ascending ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
+            });
+
+            // Append sorted rows to the tbody
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '.delete-btn', function () {
+        const rowId = $(this).data('id'); // Get the data-id attribute from the button
+
+        $.ajax({
+            url: '/Admin/Admin/RemoveAdminRole', // Replace with your server-side URL
+            type: 'POST',
+            data: { id: rowId },
+            success: function (response) {
+                if (response.success) {
+                    // Remove the corresponding row from the table
+                    $('#row-' + rowId).remove();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Failed to delete the course. Please try again.');
+            }
+        });
+    });
+</script>

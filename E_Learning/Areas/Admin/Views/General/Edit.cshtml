@@ -1,0 +1,48 @@
+﻿@model DataForInstructor
+
+@{
+    ViewData["Title"] = "Edit Instructor Data";
+}
+
+<h2>Edit Instructor Data</h2>
+
+<style>
+    .alert {
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+</style>
+
+<!-- Display Success Message -->
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Profession"></label>
+        <input asp-for="Profession" class="form-control" />
+        <span asp-validation-for="Profession" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Bio"></label>
+        <input asp-for="Bio" class="form-control" />
+        <span asp-validation-for="Bio" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Balance"></label>
+        <input asp-for="Balance" class="form-control" readonly />
+        <span asp-validation-for="Balance" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="UserId" />
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

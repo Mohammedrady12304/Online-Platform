@@ -1,0 +1,111 @@
+﻿@model IEnumerable<InstructorViewModel>
+
+<a asp-action="AssignInstructor" class="btn btn-primary">Add Instructor</a>
+<a asp-controller="Admin" asp-action="Users" asp-area="Admin" class="btn btn-danger">Back</a>
+<div>
+    <h2>Instructors List</h2>
+    <hr />
+    <table id="instructorsTable" class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th data-column="Username" class="sortable">User Name</th>
+                <th data-column="Email" class="sortable">Email</th>
+                <th data-column="FullName" class="sortable">Full Name</th>
+                <th data-column="JoinDate" class="sortable">Join Date</th>
+                <th data-column="Profession" class="sortable">Profession</th>
+                <th data-column="Balance" class="sortable">Balance</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var instructor in Model)
+            {
+                <tr id="row-@instructor.Username">
+                    <td>@instructor.Username</td>
+                    <td>@instructor.Email</td>
+                    <td>@instructor.FullName</td>
+                    <td>@instructor.JoinDate.ToShortDateString()</td>
+                    <td>@instructor.Profession</td>
+                    <td>@instructor.Balance</td>
+                    @* <td>View</td> *@
+                    <td>
+                        <button class="delete-btn" data-id="@instructor.Username">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Add sorting functionality (same as previous example)
+    document.querySelectorAll('.sortable').forEach(header => {
+        header.addEventListener('click', function () {
+            let table = document.getElementById('instructorsTable');
+            let tbody = table.querySelector('tbody');
+            let rows = Array.from(tbody.querySelectorAll('tr'));
+            let column = this.getAttribute('data-column');
+            let ascending = this.classList.contains('asc');
+
+            // Remove sorting classes from other headers
+            document.querySelectorAll('.sortable').forEach(header => header.classList.remove('asc', 'desc'));
+
+            // Toggle sorting direction
+            this.classList.toggle('asc', !ascending);
+            this.classList.toggle('desc', ascending);
+
+            let getValue = (row) => {
+                switch (column) {
+                    case 'Username':
+                        return row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                    case 'Email':
+                        return row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    case 'FullName':
+                        return row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                    case 'JoinDate':
+                        return new Date(row.querySelector('td:nth-child(4)').textContent).getTime();
+                    case 'Profession':
+                        return row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+                    case 'Balance':
+                        return parseFloat(row.querySelector('td:nth-child(6)').textContent) || 0;
+                    default:
+                        return '';
+                }
+            };
+
+            rows.sort((a, b) => {
+                let aValue = getValue(a);
+                let bValue = getValue(b);
+                return ascending ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
+            });
+
+            // Append sorted rows to the tbody
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '.delete-btn', function () {
+        const rowId = $(this).data('id'); // Get the data-id attribute from the button
+
+        $.ajax({
+            url: '/Admin/Instructor/RemoveInstructorRole', // Replace with your server-side URL
+            type: 'POST',
+            data: { id: rowId },
+            success: function (response) {
+                if (response.success) {
+                    // Remove the corresponding row from the table
+                    $('#row-' + rowId).remove();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Failed to delete the course. Please try again.');
+            }
+        });
+    });
+</script>

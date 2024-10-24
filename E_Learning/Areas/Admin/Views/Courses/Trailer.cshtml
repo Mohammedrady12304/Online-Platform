@@ -1,0 +1,58 @@
+﻿@model CoursePreview
+@{
+    Layout = "_CourseLayout";
+}
+
+
+<div class="container centered-container">
+
+	<form asp-action="Trailer" method="post" enctype="multipart/form-data">
+	
+		<div class="form-group">
+			<label asp-for="Title"></label>
+			<input asp-for="Title" class="form-control" required />
+			<span asp-validation-for="Title"></span>
+		</div>
+        <br />
+        <div class="video-container">
+            <div class="ratio ratio-16x9">
+                @Html.Raw(Model?.Videourl) 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Videourl">Video URL (Embed iframe)</label>
+            <textarea asp-for="Videourl" id="video-url-input" class="form-control" rows="4" required>@Model?.Videourl</textarea>
+            <span asp-validation-for="Videourl"></span>
+        </div>
+        <br />
+		<input asp-for="Id" class="form-control" value="@Model?.Id" type="text" hidden />
+		<input asp-for="CourseId" class="form-control" value="@Model?.CourseId" type="text" hidden />
+
+		<button type="submit" class="btn btn-primary">Set As trailer Video</button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <a href="/Admin/Courses/Detail?id=@Model?.CourseId" class="btn btn-danger">Course Details</a>
+        <div asp-validation-summary="All"></div>
+    </form>
+
+
+</div>
+
+<script>
+    document.getElementById('video-url-input').addEventListener('input', function () {
+        var iframeHtml = this.value;
+        var srcMatch = iframeHtml.match(/src="([^"]+)"/); // Use regex to extract the src URL from the iframe
+
+        if (srcMatch && srcMatch[1]) {
+            var videoSrc = srcMatch[1]; // Extracted video URL
+            var videoContainer = document.querySelector('.video-container .ratio'); // Target the container where iframe should be
+
+            // Update the container with a new iframe using the extracted src
+            videoContainer.innerHTML = `<iframe src="${videoSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+        }
+    });
+</script>
+
+

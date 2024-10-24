@@ -1,0 +1,86 @@
+﻿
+@model CourseViewModel
+
+@{
+    Layout = "_CourseLayout";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    
+}
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" required />
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" required></textarea>
+        <span asp-validation-for="Description"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Duration"></label>
+        <input asp-for="Duration" class="form-control" type="number" required />
+        <span asp-validation-for="Duration"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Summary"></label>
+        <textarea asp-for="Summary" class="form-control" required></textarea>
+        <span asp-validation-for="Summary"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status">Status</label>
+        <select asp-for="Status" class="form-control" asp-items="Model.StatusList" required></select>
+        <span asp-validation-for="Status"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.1" required />
+        <span asp-validation-for="Price"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SelectedCourseLevel">Course Level</label>
+        <select asp-for="SelectedCourseLevel" class="form-control" asp-items="Model.CourseLevels" required></select>
+        <span asp-validation-for="SelectedCourseLevel"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SelectedLanguage">Language</label>
+        <select asp-for="SelectedLanguage" class="form-control" asp-items="Model.Languages" required></select>
+        <span asp-validation-for="SelectedLanguage"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SubCategoryId">SubCategory</label>
+        <select asp-for="SubCategoryId" class="form-control" asp-items="Model.SubCategories" required></select>
+        <span asp-validation-for="SubCategoryId"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image">Course Image</label>
+        <input asp-for="Image" type="file" class="form-control-file"  />
+        <span asp-validation-for="Image"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="AddSection" type="checkbox" class="btn-check"  />
+        <label asp-for="AddSection">Add Sections</label>
+        <span asp-validation-for="AddSection"></span>
+    </div>
+
+    <input asp-for="InstructorId" class="form-control" value="@userId" type="text" hidden />
+    <button type="submit" class="btn btn-primary">Create Course</button>
+    
+    <div asp-validation-summary="All" class="text-bg-danger" ></div>
+</form>

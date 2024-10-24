@@ -1,0 +1,35 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using E_Learning.Areas.Course.Models
+
+@model CourseView
+
+<div id="section-overview" class="section-overview section pt-md-4 pt-lg-5">
+    <div class="container py-5">
+        <div class="section-col-max mx-auto">
+            <h3 class="section-title mb-4">What Will You Learn</h3>
+            <p class="mb-4">@Model.Summary</p>
+            <div class="text-center mb-3">
+                <ul class="column-list list-unstyled mx-auto d-inline-block">
+                    @foreach (var course in Model.Description.Split("\n"))
+                    {
+                    <li><i class="theme-check-icon fas fa-check me-2"></i>@course.Trim()</li>
+                    }
+                </ul>
+            </div><!--//text-center-->
+          @*   <div class="text-center mb-5">
+                <a class="btn btn-primary scrollto" asp-action="PayCourse">Join Course Now</a>
+            </div> *@
+            <div class="video-container">
+                <div class="ratio ratio-16x9">
+                    @Html.Raw(Model.trailerVideoUrl)
+                </div>
+            </div>
+            <!--//video-container-->
+
+        </div><!--//section-col-max-->
+    </div><!--//container-->
+</div><!--//section-overview-->
+

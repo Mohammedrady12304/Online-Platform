@@ -1,0 +1,39 @@
+﻿@using E_Learning.Areas.Course.Models
+
+@model CourseFullDataViewModel
+
+@{
+	Layout = "_Layout";
+	ViewBag.ViewdCourseId = Model.CourseView.Id;
+}
+
+@* Header *@
+@Html.PartialAsync("_HeaderPartialView", Model.CourseView).Result
+
+<div class="sections-wrapper">
+	
+	<div class="section-blocks mb-5">
+
+		@Html.PartialAsync("_CourseOverViewPartialView", Model.CourseView).Result
+
+		<div id="section-content" class="section-content section">
+
+			@Html.PartialAsync("_CourseSummaryPartialView", Model.CourseView).Result
+
+			<h4 class="text-center mb-4">Course Modules</h4>
+
+			@Html.PartialAsync("_CourseDetailsPartialView", Model.Sections).Result
+			
+
+		</div>
+
+		@* @Html.PartialAsync("_CourseReviewPartialView", Model.Review).Result *@
+
+		@Html.PartialAsync("_InstructorPartialView", Model.UserDataShortcutView).Result
+
+		@Html.PartialAsync("_MoreCoursesPartialView", Model.CourseCardDetails).Result
+
+
+
+	</div><!--//sections-block-->
+</div><!--//section-wrapper-->
