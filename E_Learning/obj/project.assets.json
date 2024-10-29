@@ -8354,19 +8354,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mohammed\\.nuget\\packages\\": {}
+    "C:\\Users\\Dc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\_Pioneers course\\Learnsphere\\E_Learning\\E_Learning.csproj",
+      "projectUniqueName": "E:\\Web development\\back end\\مبادرة رواد مصر الرقمية\\technical\\المشاريع\\مشروع التخرج\\Online Platform\\التيم\\Learnsphere-main\\E_Learning\\E_Learning.csproj",
       "projectName": "E_Learning",
-      "projectPath": "E:\\_Pioneers course\\Learnsphere\\E_Learning\\E_Learning.csproj",
-      "packagesPath": "C:\\Users\\mohammed\\.nuget\\packages\\",
-      "outputPath": "E:\\_Pioneers course\\Learnsphere\\E_Learning\\obj\\",
+      "projectPath": "E:\\Web development\\back end\\مبادرة رواد مصر الرقمية\\technical\\المشاريع\\مشروع التخرج\\Online Platform\\التيم\\Learnsphere-main\\E_Learning\\E_Learning.csproj",
+      "packagesPath": "C:\\Users\\Dc\\.nuget\\packages\\",
+      "outputPath": "E:\\Web development\\back end\\مبادرة رواد مصر الرقمية\\technical\\المشاريع\\مشروع التخرج\\Online Platform\\التيم\\Learnsphere-main\\E_Learning\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mohammed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
